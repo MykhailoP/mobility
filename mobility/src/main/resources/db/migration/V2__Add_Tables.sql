@@ -1,6 +1,4 @@
-CREATE database IF NOT EXISTS allmob;
-
-CREATE TABLE IF NOT EXISTS am_user
+CREATE TABLE IF NOT EXISTS allmob.am_user
 (
     ID_user        SMALLINT UNSIGNED NOT NULL,
     name           VARCHAR(128),

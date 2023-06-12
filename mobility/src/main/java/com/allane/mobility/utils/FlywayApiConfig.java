@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+import static java.lang.Boolean.TRUE;
+
 @Component
 @Lazy(false)
 public class FlywayApiConfig {
@@ -22,10 +24,16 @@ public class FlywayApiConfig {
 
     @PostConstruct
     public void init() {
-       Flyway.configure()
+        System.out.println("migration should be done");
+        Flyway flyway = Flyway.configure()
+                //.createSchemas(TRUE)
+                //.initSql("CREATE SCHEMA IF NOT EXISTS allmob;")
+                .defaultSchema("allmob")
                 .dataSource(mariaDbUrl, username, password)
-                .load()
-                .migrate();
+                .load();
+
+        //flyway.baseline();
+        flyway.migrate();
     }
 
 }

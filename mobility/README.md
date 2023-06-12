@@ -4,8 +4,11 @@
  login 'mike' and password 'mike' 
 
 - Open API     http://localhost:8080/swagger/swagger-ui/index.html 
-- flyway  .\gradlew flywayMigrate -i
-- 
+- .\gradlew clean build
+- ...\mobility\build\libs> java -jar .\mobility-0.0.1-SNAPSHOT.jar
+
+
+
 # Requirements
 
 - MariaDB comes with an advanced thread pool capable of running faster and supporting up to 200,000+ connections. 
