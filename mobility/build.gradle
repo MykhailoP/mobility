@@ -1,4 +1,3 @@
-//import nu.studer.gradle.jooq.JooqEdition
 
 buildscript {
     repositories {
@@ -7,14 +6,12 @@ buildscript {
     }
 
     dependencies {
-        /* See above for the correct groupId */
         classpath 'org.jooq:jooq-codegen:3.18.4'
         classpath 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
     }
 }
 
 plugins {
-    //id 'nu.studer.plugindev' version '4.1'
     id 'org.springframework.boot' version '2.7.12'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'org.asciidoctor.jvm.convert' version '3.3.2'
@@ -118,78 +115,3 @@ task generateEntities {
         GenerationTool.generate(configuration)
     }
 }
-
-/*gradlePlugin {
-    website = 'https://github.com/etiennestuder/gradle-jooq-plugin'
-    vcsUrl = 'https://github.com/etiennestuder/gradle-jooq-plugin'
-    plugins {
-        pluginDevPlugin {
-            id = 'nu.studer.jooq'
-            displayName = 'gradle-jooq-plugin'
-            description = 'Gradle plugin that integrates jOOQ.'
-            tags.set(['jooq'])
-            implementationClass = 'nu.studer.gradle.jooq.JooqPlugin'
-        }
-    }
-}*/
-
-/*
-jooq {
-
-
-    configurations {
-        main { // name of the jOOQ configuration
-            generateSchemaSourceOnCompilation = true // default (can be omitted)
-
-
-            generationTool {
-//logging = Logging.WARN
-                jdbc {
-                    driver = 'org.mariadb.jdbc.Driver'
-                    url = 'jdbc:mariadb://127.0.0.1:3306/allmob'
-                    user = 'root'
-                    password = '111111'
-                    properties {
-                        property {
-                            key = 'ssl'
-                            value = 'true'
-                        }
-                    }
-                }
-                generator {
-                    name = 'org.jooq.codegen.DefaultGenerator'
-                    database {
-                        name = 'org.jooq.meta.mariadb.MariaDBDatabase'
-                        inputSchema = 'allmob'
-                        forcedTypes {
-                            forcedType {
-                                name = 'varchar'
-                                includeExpression = '.*'
-                                includeTypes = 'JSONB?'
-                            }
-                            forcedType {
-                                name = 'varchar'
-                                includeExpression = '.*'
-                                includeTypes = 'INET'
-                            }
-                        }
-                    }
-                    generate {
-                        deprecated = false
-                        records = true
-                        immutablePojos = true
-                        fluentSetters = true
-                    }
-                    target {
-                        packageName = 'nu.studer.sample'
-                        directory = 'build/generated-src/jooq/main' // default (can be omitted)
-                    }
-                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
-                }
-            }
-        }
-    }
-}
-*/
-
-

@@ -4,6 +4,8 @@
 package com.allane.mobility.persistence;
 
 
+import com.allane.mobility.persistence.tables.AmCustomer;
+import com.allane.mobility.persistence.tables.AmLeasingContract;
 import com.allane.mobility.persistence.tables.AmUser;
 import com.allane.mobility.persistence.tables.FlywaySchemaHistory;
 
@@ -24,5 +26,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index FLYWAY_SCHEMA_HISTORY_FLYWAY_SCHEMA_HISTORY_S_IDX = Internal.createIndex(DSL.name("flyway_schema_history_s_idx"), FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, new OrderField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS }, false);
+    public static final Index AM_CUSTOMER_INDX_AM_USER = Internal.createIndex(DSL.name("indx_am_user"), AmCustomer.AM_CUSTOMER, new OrderField[] { AmCustomer.AM_CUSTOMER.ID_CUSTOMER, AmCustomer.AM_CUSTOMER.NAME, AmCustomer.AM_CUSTOMER.SURNAME }, false);
+    public static final Index AM_LEASING_CONTRACT_INDX_AM_USER = Internal.createIndex(DSL.name("indx_am_user"), AmLeasingContract.AM_LEASING_CONTRACT, new OrderField[] { AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER, AmLeasingContract.AM_LEASING_CONTRACT.ID_VEHICLE }, false);
     public static final Index AM_USER_INDX_AM_USER = Internal.createIndex(DSL.name("indx_am_user"), AmUser.AM_USER, new OrderField[] { AmUser.AM_USER.ID_USER, AmUser.AM_USER.NAME, AmUser.AM_USER.SURNAME }, false);
 }

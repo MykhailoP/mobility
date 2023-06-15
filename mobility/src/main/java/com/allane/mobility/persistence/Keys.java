@@ -4,9 +4,17 @@
 package com.allane.mobility.persistence;
 
 
+import com.allane.mobility.persistence.tables.AmCustomer;
+import com.allane.mobility.persistence.tables.AmCustomerLeasingContract;
+import com.allane.mobility.persistence.tables.AmLeasingContract;
 import com.allane.mobility.persistence.tables.AmUser;
+import com.allane.mobility.persistence.tables.AmVehicle;
 import com.allane.mobility.persistence.tables.FlywaySchemaHistory;
+import com.allane.mobility.persistence.tables.records.AmCustomerLeasingContractRecord;
+import com.allane.mobility.persistence.tables.records.AmCustomerRecord;
+import com.allane.mobility.persistence.tables.records.AmLeasingContractRecord;
 import com.allane.mobility.persistence.tables.records.AmUserRecord;
+import com.allane.mobility.persistence.tables.records.AmVehicleRecord;
 import com.allane.mobility.persistence.tables.records.FlywaySchemaHistoryRecord;
 
 import org.jooq.TableField;
@@ -26,6 +34,10 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AmCustomerRecord> KEY_AM_CUSTOMER_PRIMARY = Internal.createUniqueKey(AmCustomer.AM_CUSTOMER, DSL.name("KEY_am_customer_PRIMARY"), new TableField[] { AmCustomer.AM_CUSTOMER.ID_CUSTOMER, AmCustomer.AM_CUSTOMER.NAME, AmCustomer.AM_CUSTOMER.SURNAME }, true);
+    public static final UniqueKey<AmCustomerLeasingContractRecord> KEY_AM_CUSTOMER_LEASING_CONTRACT_PRIMARY = Internal.createUniqueKey(AmCustomerLeasingContract.AM_CUSTOMER_LEASING_CONTRACT, DSL.name("KEY_am_customer_leasing_contract_PRIMARY"), new TableField[] { AmCustomerLeasingContract.AM_CUSTOMER_LEASING_CONTRACT.ID_CUSTOMER, AmCustomerLeasingContract.AM_CUSTOMER_LEASING_CONTRACT.ID_CONTRACT_NUMBER }, true);
+    public static final UniqueKey<AmLeasingContractRecord> KEY_AM_LEASING_CONTRACT_PRIMARY = Internal.createUniqueKey(AmLeasingContract.AM_LEASING_CONTRACT, DSL.name("KEY_am_leasing_contract_PRIMARY"), new TableField[] { AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER, AmLeasingContract.AM_LEASING_CONTRACT.ID_VEHICLE }, true);
     public static final UniqueKey<AmUserRecord> KEY_AM_USER_PRIMARY = Internal.createUniqueKey(AmUser.AM_USER, DSL.name("KEY_am_user_PRIMARY"), new TableField[] { AmUser.AM_USER.ID_USER, AmUser.AM_USER.NAME, AmUser.AM_USER.SURNAME }, true);
+    public static final UniqueKey<AmVehicleRecord> KEY_AM_VEHICLE_PRIMARY = Internal.createUniqueKey(AmVehicle.AM_VEHICLE, DSL.name("KEY_am_vehicle_PRIMARY"), new TableField[] { AmVehicle.AM_VEHICLE.ID_VEHICLE }, true);
     public static final UniqueKey<FlywaySchemaHistoryRecord> KEY_FLYWAY_SCHEMA_HISTORY_PRIMARY = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("KEY_flyway_schema_history_PRIMARY"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
 }

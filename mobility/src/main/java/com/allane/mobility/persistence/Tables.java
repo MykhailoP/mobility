@@ -4,7 +4,11 @@
 package com.allane.mobility.persistence;
 
 
+import com.allane.mobility.persistence.tables.AmCustomer;
+import com.allane.mobility.persistence.tables.AmCustomerLeasingContract;
+import com.allane.mobility.persistence.tables.AmLeasingContract;
 import com.allane.mobility.persistence.tables.AmUser;
+import com.allane.mobility.persistence.tables.AmVehicle;
 import com.allane.mobility.persistence.tables.FlywaySchemaHistory;
 
 
@@ -15,9 +19,29 @@ import com.allane.mobility.persistence.tables.FlywaySchemaHistory;
 public class Tables {
 
     /**
+     * The table <code>allmob.am_customer</code>.
+     */
+    public static final AmCustomer AM_CUSTOMER = AmCustomer.AM_CUSTOMER;
+
+    /**
+     * The table <code>allmob.am_customer_leasing_contract</code>.
+     */
+    public static final AmCustomerLeasingContract AM_CUSTOMER_LEASING_CONTRACT = AmCustomerLeasingContract.AM_CUSTOMER_LEASING_CONTRACT;
+
+    /**
+     * The table <code>allmob.am_leasing_contract</code>.
+     */
+    public static final AmLeasingContract AM_LEASING_CONTRACT = AmLeasingContract.AM_LEASING_CONTRACT;
+
+    /**
      * The table <code>allmob.am_user</code>.
      */
     public static final AmUser AM_USER = AmUser.AM_USER;
+
+    /**
+     * The table <code>allmob.am_vehicle</code>.
+     */
+    public static final AmVehicle AM_VEHICLE = AmVehicle.AM_VEHICLE;
 
     /**
      * The table <code>allmob.flyway_schema_history</code>.
