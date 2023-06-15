@@ -6,6 +6,8 @@
 - Open API     http://localhost:8080/swagger/swagger-ui/index.html 
 - .\gradlew clean build
 - ...\mobility\build\libs> java -jar .\mobility-0.0.1-SNAPSHOT.jar
+- jOOQ code generation for persistence layer 
+'.\gradlew generateEntities'
 
 
 
