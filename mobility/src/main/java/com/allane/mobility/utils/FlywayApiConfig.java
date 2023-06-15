@@ -24,7 +24,6 @@ public class FlywayApiConfig {
 
     @PostConstruct
     public void init() {
-        System.out.println("migration should be done");
         Flyway flyway = Flyway.configure()
                 //.createSchemas(TRUE)
                 //.initSql("CREATE SCHEMA IF NOT EXISTS allmob;")
