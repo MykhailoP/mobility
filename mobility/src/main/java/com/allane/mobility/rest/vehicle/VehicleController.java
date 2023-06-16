@@ -1,7 +1,7 @@
 package com.allane.mobility.rest.vehicle;
 
 import com.allane.mobility.persistence.tables.pojos.AmVehicle;
-import com.allane.mobility.services.vehicle.VehicleService;
+import com.allane.mobility.services.vehicle.IVehicleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,8 @@ import java.util.List;
 
 import static com.allane.mobility.rest.vehicle.VehicleController.API_PATH;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.http.ResponseEntity.*;
+import static org.springframework.http.ResponseEntity.ok;
+import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(path = API_PATH, produces = APPLICATION_JSON_VALUE)
@@ -19,9 +20,9 @@ public class VehicleController {
 
     public static final String API_PATH = "/api";
 
-    private final VehicleService vehicleService;
+    private final IVehicleService vehicleService;
 
-    public VehicleController(VehicleService vehicleService) {
+    public VehicleController(IVehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
@@ -51,15 +52,15 @@ public class VehicleController {
 
     @GetMapping("/vehicles/{id}")
     public AmVehicle one(@PathVariable Integer id) {
-        return null; //todo:: repository.findById
+        return vehicleService.one(id);
     }
 
 
     @PutMapping("/vehicles/{id}")
     public AmVehicle replaceNote(@RequestBody AmVehicle vehicle, @PathVariable Integer id) {
-        return vehicle; //todo:: update logic
-
-
+        int updateRes = vehicleService.updateVehicle(vehicle, id);
+        vehicle.setIdVehicle(id);
+        return vehicle;
     }
 
 
