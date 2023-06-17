@@ -2,11 +2,11 @@ package com.allane.mobility.rest.vehicle;
 
 import com.allane.mobility.persistence.tables.pojos.AmVehicle;
 import com.allane.mobility.services.vehicle.IVehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 import static com.allane.mobility.rest.vehicle.VehicleController.API_PATH;
@@ -22,6 +22,7 @@ public class VehicleController {
 
     private final IVehicleService vehicleService;
 
+    @Autowired
     public VehicleController(IVehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
@@ -36,25 +37,20 @@ public class VehicleController {
         return ok(vehicle);
     }
 
-
     @DeleteMapping("/vehicles/{id}")
-    public void deleteLeasingContract(@PathVariable Integer id) {
-
-        //todo:: repository.deleteById();
+    public int deleteVehicle(@PathVariable Integer id) {
+        return vehicleService.delete(id);
     }
-
 
     @GetMapping("/vehicles/")
     public List<AmVehicle> all() {
-        return Collections.emptyList();//todo:: repository.findAll();
+        return vehicleService.fetchRangeOfIdVehicle();
     }
-
 
     @GetMapping("/vehicles/{id}")
     public AmVehicle one(@PathVariable Integer id) {
         return vehicleService.one(id);
     }
-
 
     @PutMapping("/vehicles/{id}")
     public AmVehicle replaceNote(@RequestBody AmVehicle vehicle, @PathVariable Integer id) {
@@ -62,6 +58,5 @@ public class VehicleController {
         vehicle.setIdVehicle(id);
         return vehicle;
     }
-
 
 }

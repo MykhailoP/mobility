@@ -5,13 +5,13 @@ import com.allane.mobility.persistence.tables.pojos.AmVehicle;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.ResultQuery;
-import org.jooq.conf.RenderNameCase;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
-import static org.jooq.conf.RenderQuotedNames.EXPLICIT_DEFAULT_UNQUOTED;
 
 @Repository
 public class VehicleDao extends AmVehicleDao implements IVehicleDao {
@@ -19,11 +19,6 @@ public class VehicleDao extends AmVehicleDao implements IVehicleDao {
     private final DSLContext context;
 
     public VehicleDao(DSLContext context) {
-        context.settings().setRenderNameCase(RenderNameCase.AS_IS);
-        context.configuration().settings().setRenderSchema(Boolean.FALSE);
-        context.configuration().settings().setRenderNameCase(RenderNameCase.AS_IS);
-        context.configuration().settings().setRenderQuotedNames(EXPLICIT_DEFAULT_UNQUOTED);
-        context.configuration().settings().setRenderFormatted(Boolean.FALSE);
         this.context = context;
     }
 
@@ -64,18 +59,39 @@ public class VehicleDao extends AmVehicleDao implements IVehicleDao {
 
     @Override
     public int updateVehicle(AmVehicle vehicle, Integer id) {
-        return context.update(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE)
-                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.BRAND, vehicle.getBrand())
-                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.MODEL, vehicle.getModel())
-                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.MODEL_YEAR, vehicle.getModelYear())
-                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.VIN_CODE, vehicle.getVinCode())
-                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.PRICE, vehicle.getPrice())
+        AmVehicle existVehicle = fetchOne(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.ID_VEHICLE, id);
+        if (existVehicle == null) {
+            return 0;
+        }
+        existVehicle.setBrand(firstNonNull(vehicle.getBrand(), existVehicle.getBrand()));
+        existVehicle.setModel(firstNonNull(vehicle.getModel(), existVehicle.getModel()));
+        existVehicle.setModelYear(firstNonNull(vehicle.getModelYear(), existVehicle.getModelYear()));
+        existVehicle.setVinCode(firstNonNull(vehicle.getVinCode(), existVehicle.getVinCode()));
+        existVehicle.setPrice(firstNonNull(vehicle.getPrice(), existVehicle.getPrice()));
+
+        return ctx().update(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE)
+                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.BRAND, existVehicle.getBrand())
+                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.MODEL, existVehicle.getModel())
+                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.MODEL_YEAR, existVehicle.getModelYear())
+                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.VIN_CODE, existVehicle.getVinCode())
+                .set(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.PRICE, existVehicle.getPrice())
                 .where(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.ID_VEHICLE.eq(id)).execute();
     }
 
     @Override
     public AmVehicle one(Integer id) {
         return this.fetchOneByIdVehicle(id);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return ctx().delete(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE)
+                .where(com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.ID_VEHICLE.eq(id)).execute();
+    }
+
+    @Override
+    public List<AmVehicle> fetchRangeOfIdVehicle() {
+        return fetchRangeOfIdVehicle(0, Integer.MAX_VALUE);
     }
 
 }

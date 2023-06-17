@@ -2,23 +2,18 @@ package com.allane.mobility.services.vehicle;
 
 import com.allane.mobility.dao.vehicle.IVehicleDao;
 import com.allane.mobility.persistence.tables.pojos.AmVehicle;
-import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.ResultQuery;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.google.common.base.MoreObjects.firstNonNull;
-import static java.lang.String.format;
-import static java.util.Optional.ofNullable;
+import java.util.List;
 
 @Service
 public class VehicleService implements IVehicleService {
 
-    private final DSLContext context;
     private final IVehicleDao vehicleDao;
 
-    public VehicleService(DSLContext context, IVehicleDao vehicleDao) {
-        this.context = context;
+    @Autowired
+    public VehicleService(IVehicleDao vehicleDao) {
         this.vehicleDao = vehicleDao;
     }
 
@@ -36,4 +31,15 @@ public class VehicleService implements IVehicleService {
     public AmVehicle one(Integer id) {
         return vehicleDao.one(id);
     }
+
+    @Override
+    public int delete(Integer id) {
+        return vehicleDao.delete(id);
+    }
+
+    @Override
+    public List<AmVehicle> fetchRangeOfIdVehicle() {
+        return vehicleDao.fetchRangeOfIdVehicle();
+    }
+
 }
