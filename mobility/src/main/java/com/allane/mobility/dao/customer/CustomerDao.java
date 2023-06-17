@@ -28,7 +28,7 @@ public class CustomerDao extends AmCustomerDao implements ICustomerDao {
     }
 
     @Override
-    public int newCustomer(AmCustomer customer) {
+    public int insertCustomer(AmCustomer customer) {
         ResultQuery<Record> maxId = context.resultQuery(format("select max(%s) AS %s from %s;",
                 com.allane.mobility.persistence.tables.AmCustomer.AM_CUSTOMER.ID_CUSTOMER.getName(),
                 com.allane.mobility.persistence.tables.AmCustomer.AM_CUSTOMER.ID_CUSTOMER.getName(),
@@ -66,7 +66,7 @@ public class CustomerDao extends AmCustomerDao implements ICustomerDao {
     }
 
     @Override
-    public AmCustomer one(Integer id) {
+    public AmCustomer selectOne(Integer id) {
         return fetchOne(com.allane.mobility.persistence.tables.AmCustomer.AM_CUSTOMER.ID_CUSTOMER, id);
     }
 
@@ -77,7 +77,7 @@ public class CustomerDao extends AmCustomerDao implements ICustomerDao {
     }
 
     @Override
-    public List<AmCustomer> fetch() {
+    public List<AmCustomer> fetchAll() {
         return fetchRangeOfIdCustomer(0, Integer.MAX_VALUE);
     }
 

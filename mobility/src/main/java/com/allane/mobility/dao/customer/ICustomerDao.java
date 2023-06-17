@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface ICustomerDao {
 
-    int newCustomer(AmCustomer customer);
+    int insertCustomer(AmCustomer customer);
 
     int updateCustomer(AmCustomer customer, Integer id);
 
-    AmCustomer one(Integer id);
+    AmCustomer selectOne(Integer id);
 
     int delete(Integer id);
 
-    List<AmCustomer> fetch();
+    List<AmCustomer> fetchAll();
 
 }

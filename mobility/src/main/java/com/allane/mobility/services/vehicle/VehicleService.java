@@ -18,8 +18,8 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public int newVehicle(AmVehicle vehicle) {
-        return vehicleDao.newVehicle(vehicle);
+    public int createVehicle(AmVehicle vehicle) {
+        return vehicleDao.insertVehicle(vehicle);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public AmVehicle one(Integer id) {
-        return vehicleDao.one(id);
+    public AmVehicle getOne(Integer id) {
+        return vehicleDao.selectOne(id);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public List<AmVehicle> fetchRangeOfIdVehicle() {
-        return vehicleDao.fetchRangeOfIdVehicle();
+    public List<AmVehicle> getAll() {
+        return vehicleDao.fetchAll();
     }
 
 }

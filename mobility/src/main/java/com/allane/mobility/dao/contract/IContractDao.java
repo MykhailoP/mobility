@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface IContractDao {
 
-    int newContract(AmLeasingContract leasingContract);
+    int insertContract(AmLeasingContract leasingContract);
 
     int updateContract(AmLeasingContract leasingContract, Integer id);
 
-    AmLeasingContract one(Integer id);
+    AmLeasingContract selectOne(Integer id);
 
     int delete(Integer id);
 

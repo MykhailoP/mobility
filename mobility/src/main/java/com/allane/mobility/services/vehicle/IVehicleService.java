@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IVehicleService {
 
-    int newVehicle(AmVehicle vehicle);
+    int createVehicle(AmVehicle vehicle);
 
     int updateVehicle(AmVehicle vehicle, Integer id);
 
-    AmVehicle one(Integer id);
+    AmVehicle getOne(Integer id);
 
     int delete(Integer id);
 
-    List<AmVehicle> fetchRangeOfIdVehicle();
+    List<AmVehicle> getAll();
 
 }

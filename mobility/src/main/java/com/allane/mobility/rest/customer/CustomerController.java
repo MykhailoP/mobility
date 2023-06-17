@@ -26,8 +26,8 @@ public class CustomerController {
     }
 
     @PostMapping("/customers")
-    public ResponseEntity<AmCustomer> customers(@RequestBody AmCustomer customer) {
-        int savingResult = customerService.newCustomer(customer);
+    public ResponseEntity<AmCustomer> insert(@RequestBody AmCustomer customer) {
+        int savingResult = customerService.createCustomer(customer);
         int expectedRowsToInsert = 1;
         if (savingResult < expectedRowsToInsert) {
             return status(HttpStatus.INTERNAL_SERVER_ERROR).body(customer);
@@ -41,17 +41,17 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/")
-    public List<AmCustomer> all() {
-        return customerService.fetch();
+    public List<AmCustomer> getAll() {
+        return customerService.getAll();
     }
 
     @GetMapping("/customers/{id}")
-    public AmCustomer one(@PathVariable Integer id) {
-        return customerService.one(id);
+    public AmCustomer getOne(@PathVariable Integer id) {
+        return customerService.getOne(id);
     }
 
     @PutMapping("/customers/{id}")
-    public AmCustomer replaceCustomer(@RequestBody AmCustomer customer, @PathVariable Integer id) {
+    public AmCustomer update(@RequestBody AmCustomer customer, @PathVariable Integer id) {
         int updateRes = customerService.updateCustomer(customer, id);
         customer.setIdCustomer(id);
         return customer;

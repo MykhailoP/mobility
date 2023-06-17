@@ -18,8 +18,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public int newCustomer(AmCustomer customer) {
-        return customerDao.newCustomer(customer);
+    public int createCustomer(AmCustomer customer) {
+        return customerDao.insertCustomer(customer);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public AmCustomer one(Integer id) {
-        return customerDao.one(id);
+    public AmCustomer getOne(Integer id) {
+        return customerDao.selectOne(id);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<AmCustomer> fetch() {
-        return customerDao.fetch();
+    public List<AmCustomer> getAll() {
+        return customerDao.fetchAll();
     }
 
 }

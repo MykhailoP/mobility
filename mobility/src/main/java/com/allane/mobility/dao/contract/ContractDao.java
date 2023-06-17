@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.google.common.base.MoreObjects.firstNonNull;
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
@@ -27,7 +28,7 @@ public class ContractDao extends AmLeasingContractDao implements IContractDao {
     }
 
     @Override
-    public int newContract(AmLeasingContract leasingContract) {
+    public int insertContract(AmLeasingContract leasingContract) {
         ResultQuery<Record> maxId = context.resultQuery(format("select max(%s) AS %s from %s;",
                 com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER.getName(),
                 com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER.getName(),
@@ -38,22 +39,33 @@ public class ContractDao extends AmLeasingContractDao implements IContractDao {
                 .orElse(0);
         leasingContract.setIdContractNumber(++maxIdValue);
 
-        return 0;
+        return ctx().insertInto(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT,
+                        com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER,
+                        com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_VEHICLE,
+                        com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.MONTHLY_RATE)
+                .values(leasingContract.getIdContractNumber(), leasingContract.getIdVehicle(),
+                        leasingContract.getMonthlyRate())
+                .execute();
     }
 
     @Override
     public int updateContract(AmLeasingContract leasingContract, Integer id) {
-        return 0;
-        /*
-        *   ID_contract_number
-            ID_vehicle
-            monthly_rate
-        *
-        * */
+        AmLeasingContract existContract =
+                fetchOne(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER, id);
+        if (existContract == null) {
+            return 0;
+        }
+        existContract.setIdVehicle(firstNonNull(leasingContract.getIdVehicle(), existContract.getIdVehicle()));
+        existContract.setMonthlyRate(firstNonNull(leasingContract.getMonthlyRate(), existContract.getMonthlyRate()));
+
+        return ctx().update(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT)
+                .set(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_VEHICLE, existContract.getIdVehicle())
+                .set(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.MONTHLY_RATE, existContract.getMonthlyRate())
+                .where().execute();
     }
 
     @Override
-    public AmLeasingContract one(Integer id) {
+    public AmLeasingContract selectOne(Integer id) {
         return fetchOne(com.allane.mobility.persistence.tables.AmLeasingContract.AM_LEASING_CONTRACT.ID_CONTRACT_NUMBER, id);
     }
 

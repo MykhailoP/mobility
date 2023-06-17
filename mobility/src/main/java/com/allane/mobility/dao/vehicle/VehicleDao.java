@@ -28,7 +28,7 @@ public class VehicleDao extends AmVehicleDao implements IVehicleDao {
     }
 
     @Override
-    public int newVehicle(AmVehicle vehicle) {
+    public int insertVehicle(AmVehicle vehicle) {
         ResultQuery<Record> maxId = context.resultQuery(format("select max(%s) AS %s from %s;",
                 com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.ID_VEHICLE.getName(),
                 com.allane.mobility.persistence.tables.AmVehicle.AM_VEHICLE.ID_VEHICLE.getName(),
@@ -79,7 +79,7 @@ public class VehicleDao extends AmVehicleDao implements IVehicleDao {
     }
 
     @Override
-    public AmVehicle one(Integer id) {
+    public AmVehicle selectOne(Integer id) {
         return this.fetchOneByIdVehicle(id);
     }
 
@@ -90,7 +90,7 @@ public class VehicleDao extends AmVehicleDao implements IVehicleDao {
     }
 
     @Override
-    public List<AmVehicle> fetchRangeOfIdVehicle() {
+    public List<AmVehicle> fetchAll() {
         return fetchRangeOfIdVehicle(0, Integer.MAX_VALUE);
     }
 

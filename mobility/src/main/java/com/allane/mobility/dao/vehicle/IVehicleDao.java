@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IVehicleDao {
 
-    int newVehicle(AmVehicle vehicle);
+    int insertVehicle(AmVehicle vehicle);
 
     int updateVehicle(AmVehicle vehicle, Integer id);
 
-    AmVehicle one(Integer id);
+    AmVehicle selectOne(Integer id);
 
     int delete(Integer id);
 
-    List<AmVehicle> fetchRangeOfIdVehicle();
+    List<AmVehicle> fetchAll();
 
 }

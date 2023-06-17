@@ -18,8 +18,8 @@ public class LeasingContractService implements ILeasingContractService {
     }
 
     @Override
-    public int newLeasingContract(AmLeasingContract leasingContract) {
-        return contractDao.newContract(leasingContract);
+    public int createLeasingContract(AmLeasingContract leasingContract) {
+        return contractDao.insertContract(leasingContract);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class LeasingContractService implements ILeasingContractService {
     }
 
     @Override
-    public AmLeasingContract one(Integer id) {
-        return contractDao.one(id);
+    public AmLeasingContract getOne(Integer id) {
+        return contractDao.selectOne(id);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class LeasingContractService implements ILeasingContractService {
     }
 
     @Override
-    public List<AmLeasingContract> fetchAll() {
+    public List<AmLeasingContract> getAll() {
         return contractDao.fetchAll();
     }
 

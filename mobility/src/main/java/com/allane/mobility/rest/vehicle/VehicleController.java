@@ -28,8 +28,8 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles")
-    public ResponseEntity<AmVehicle> vehicles(@RequestBody AmVehicle vehicle) {
-        int savingResult = vehicleService.newVehicle(vehicle);
+    public ResponseEntity<AmVehicle> insert(@RequestBody AmVehicle vehicle) {
+        int savingResult = vehicleService.createVehicle(vehicle);
         int expectedRowsToInsert = 1;
         if (savingResult < expectedRowsToInsert) {
             return status(HttpStatus.INTERNAL_SERVER_ERROR).body(vehicle);
@@ -43,17 +43,17 @@ public class VehicleController {
     }
 
     @GetMapping("/vehicles/")
-    public List<AmVehicle> all() {
-        return vehicleService.fetchRangeOfIdVehicle();
+    public List<AmVehicle> getAll() {
+        return vehicleService.getAll();
     }
 
     @GetMapping("/vehicles/{id}")
-    public AmVehicle one(@PathVariable Integer id) {
-        return vehicleService.one(id);
+    public AmVehicle getOne(@PathVariable Integer id) {
+        return vehicleService.getOne(id);
     }
 
     @PutMapping("/vehicles/{id}")
-    public AmVehicle replaceNote(@RequestBody AmVehicle vehicle, @PathVariable Integer id) {
+    public AmVehicle update(@RequestBody AmVehicle vehicle, @PathVariable Integer id) {
         int updateRes = vehicleService.updateVehicle(vehicle, id);
         vehicle.setIdVehicle(id);
         return vehicle;

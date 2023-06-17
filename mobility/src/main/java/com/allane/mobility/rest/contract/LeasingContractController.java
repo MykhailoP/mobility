@@ -26,8 +26,8 @@ public class LeasingContractController {
     }
 
     @PostMapping("/contracts")
-    public ResponseEntity<AmLeasingContract> contracts(@RequestBody AmLeasingContract leasingContract) {
-        int savingResult = leasingContractService.newLeasingContract(leasingContract);
+    public ResponseEntity<AmLeasingContract> insert(@RequestBody AmLeasingContract leasingContract) {
+        int savingResult = leasingContractService.createLeasingContract(leasingContract);
         int expectedRowsToInsert = 1;
         if (savingResult < expectedRowsToInsert) {
             return status(HttpStatus.INTERNAL_SERVER_ERROR).body(leasingContract);
@@ -42,19 +42,19 @@ public class LeasingContractController {
 
 
     @GetMapping("/contracts/")
-    public List<AmLeasingContract> all() {
-        return leasingContractService.fetchAll();
+    public List<AmLeasingContract> getAll() {
+        return leasingContractService.getAll();
     }
 
 
     @GetMapping("/contracts/{id}")
-    public AmLeasingContract one(@PathVariable Integer id) {
-        return leasingContractService.one(id);
+    public AmLeasingContract getOne(@PathVariable Integer id) {
+        return leasingContractService.getOne(id);
     }
 
 
     @PutMapping("/contracts/{id}")
-    public AmLeasingContract replaceLeasingContract(@RequestBody AmLeasingContract leasingContract, @PathVariable Integer id) {
+    public AmLeasingContract update(@RequestBody AmLeasingContract leasingContract, @PathVariable Integer id) {
         int updateRes = leasingContractService.updateLeasingContract(leasingContract, id);
         leasingContract.setIdContractNumber(id);
         return leasingContract;
