@@ -1,5 +1,6 @@
 package com.allane.mobility.dao.contract;
 
+import com.allane.mobility.dao.contract.dto.LeasingContractReport;
 import com.allane.mobility.persistence.tables.pojos.AmLeasingContract;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface IContractDao {
     int delete(Integer id);
 
     List<AmLeasingContract> fetchAll();
+
+    List<LeasingContractReport> leasingContractsReport();
 
 }

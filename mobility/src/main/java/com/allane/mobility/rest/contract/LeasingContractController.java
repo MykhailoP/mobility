@@ -1,5 +1,6 @@
 package com.allane.mobility.rest.contract;
 
+import com.allane.mobility.dao.contract.dto.LeasingContractReport;
 import com.allane.mobility.persistence.tables.pojos.AmLeasingContract;
 import com.allane.mobility.services.contract.ILeasingContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class LeasingContractController {
     @GetMapping("/contracts/")
     public List<AmLeasingContract> getAll() {
         return leasingContractService.getAll();
+    }
+
+    @GetMapping("/full/contracts/")
+    public List<LeasingContractReport> getReport() {
+        return leasingContractService.leasingContractsReport();
     }
 
 

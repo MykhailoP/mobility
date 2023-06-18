@@ -1,16 +1,18 @@
 package com.allane.mobility.dao.contract;
 
+import com.allane.mobility.dao.contract.dto.LeasingContractReport;
 import com.allane.mobility.persistence.tables.AmCustomer;
 import com.allane.mobility.persistence.tables.AmCustomerLeasingContract;
 import com.allane.mobility.persistence.tables.AmVehicle;
 import com.allane.mobility.persistence.tables.daos.AmLeasingContractDao;
 import com.allane.mobility.persistence.tables.pojos.AmLeasingContract;
-import org.jooq.DSLContext;
+import org.jooq.*;
 import org.jooq.Record;
-import org.jooq.ResultQuery;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static java.lang.String.format;
@@ -83,6 +85,11 @@ public class ContractDao extends AmLeasingContractDao implements IContractDao {
     @Override
     public List<AmLeasingContract> fetchAll() {
         return fetchRangeOfIdContractNumber(0, Integer.MAX_VALUE);
+    }
+
+    @Override
+    public List<LeasingContractReport> leasingContractsReport(){
+        return ctx().fetch(leasingContractJoinQuery()).into(LeasingContractReport.class);
     }
 
     public String leasingContractJoinQuery() {
