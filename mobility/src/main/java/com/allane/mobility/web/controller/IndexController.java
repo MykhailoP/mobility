@@ -21,4 +21,12 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping({"/", "/contract"})
+    public String contract(Model model) {
+        model.addAttribute("title", "Allane Mobility");
+        model.addAttribute("welcome", "Welcome to Allane mobility group");
+        model.addAttribute("applicationTitle", "Leasing application");
+        return "leasingContract";
+    }
+
 }
