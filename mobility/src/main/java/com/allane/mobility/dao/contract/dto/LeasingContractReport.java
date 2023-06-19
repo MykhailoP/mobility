@@ -13,4 +13,12 @@ public class LeasingContractReport {
     public BigDecimal monthlyRate;
     public BigDecimal price;
 
+    public String getModelYear() {
+        return "(" + modelYear + ")";
+    }
+
+    public String getVinCode() {
+        return vinCode == null || vinCode.isEmpty() ? "-" : vinCode;
+    }
+
 }
